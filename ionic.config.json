@@ -1,0 +1,8 @@
+{
+  "name": "citizant-spo",
+  "app_id": "",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
