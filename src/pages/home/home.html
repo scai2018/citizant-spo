@@ -15,4 +15,43 @@
   </p>
 
   <button ion-button secondary menuToggle>Toggle Menu</button>
+  <p>{{message}}</p>
+  <div>
+
+      <ion-list *ngIf="isAuthenticated">
+        <ion-item>
+            Status: {{authResult.Status}}
+        </ion-item>
+        <ion-item>Name: {{authResult.userInfo.givenName}}</ion-item>
+        <ion-item>Access Token: {{authResult.accessToken}}</ion-item>
+      </ion-list>
+      
+      <button ion-button (click)="acquireToken()">Acquire Token</button>
+  </div>
+  <button ion-button full (click)="getProjectsList()">Projects List</button>
+
+  <ion-grid >
+      <ion-row class="ion-header">
+        <ion-col>
+          Project
+        </ion-col>
+        <ion-col>
+          Owner
+        </ion-col>
+        <ion-col>
+          Status
+        </ion-col>
+      </ion-row>    
+      <ion-row *ngFor="let project of projects">
+        <ion-col>
+            {{project.fields.Title}}
+        </ion-col>
+        <ion-col>
+          {{project.fields.Project_x0020_Manager}}
+        </ion-col>
+        <ion-col>
+            {{project.fields.Status}}
+          </ion-col>
+      </ion-row>
+    </ion-grid>
 </ion-content>
