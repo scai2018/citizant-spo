@@ -3,11 +3,37 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>List</ion-title>
+    <ion-title>Activities</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
+    <i icon ion-refresh (click)="getActivitiesList()"></i>  Status:<div id="queryStatus"></div> 
+    <ion-grid >
+        <ion-row class="ion-header">
+          <ion-col>
+            Project
+          </ion-col>
+          <ion-col>
+            Owner
+          </ion-col>
+          <ion-col>
+            Status
+          </ion-col>
+        </ion-row>    
+        <ion-row *ngFor="let project of projects">
+          <ion-col>
+              {{project.fields.Title}}
+          </ion-col>
+          <ion-col>
+            {{project.fields.Project_x0020_Manager}}
+          </ion-col>
+          <ion-col>
+              {{project.fields.Status}}
+            </ion-col>
+        </ion-row>
+      </ion-grid>
+  
   <ion-list>
     <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
       <ion-icon [name]="item.icon" item-start></ion-icon>

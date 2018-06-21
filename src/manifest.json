@@ -4,8 +4,8 @@
   "start_url": "index.html",
   "display": "standalone",
   "icons": [{
-    "src": "assets/imgs/logo.png",
-    "sizes": "512x512",
+    "src": "assets/imgs/Citizant-logo-update_coated_web.png",
+    "sizes": "500x171",
     "type": "image/png"
   }],
   "background_color": "#4e8ef7",

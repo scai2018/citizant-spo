@@ -1,57 +1,26 @@
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Home</ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <button
+            ion-button
+            menuToggle
+        >
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Home</ion-title>
+    </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h3>Ionic Menu Starter</h3>
+    <h3>Citizant Activities App</h3>
+    logStatus:<p id="logStatus">{{logStatus}}</p>
+    timeNow:<p id="timeNow">{{timeNow}}</p>
+    dateNow:<p>{{dateNow}}</p>
+    authStatus:<div>
+        <ion-item
+            id="authStatus"
+        >{{authStatus}}</ion-item>
+        <br>
+        <img src="./assets/imgs/Citizant-logo-update_coated_web.png">
+    </div>
 
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
-
-  <button ion-button secondary menuToggle>Toggle Menu</button>
-  <p>{{message}}</p>
-  <div>
-
-      <ion-list *ngIf="isAuthenticated">
-        <ion-item>
-            Status: {{authResult.Status}}
-        </ion-item>
-        <ion-item>Name: {{authResult.userInfo.givenName}}</ion-item>
-        <ion-item>Access Token: {{authResult.accessToken}}</ion-item>
-      </ion-list>
-      
-      <button ion-button (click)="acquireToken()">Acquire Token</button>
-  </div>
-  <button ion-button full (click)="getProjectsList()">Projects List</button>
-
-  <ion-grid >
-      <ion-row class="ion-header">
-        <ion-col>
-          Project
-        </ion-col>
-        <ion-col>
-          Owner
-        </ion-col>
-        <ion-col>
-          Status
-        </ion-col>
-      </ion-row>    
-      <ion-row *ngFor="let project of projects">
-        <ion-col>
-            {{project.fields.Title}}
-        </ion-col>
-        <ion-col>
-          {{project.fields.Project_x0020_Manager}}
-        </ion-col>
-        <ion-col>
-            {{project.fields.Status}}
-          </ion-col>
-      </ion-row>
-    </ion-grid>
 </ion-content>

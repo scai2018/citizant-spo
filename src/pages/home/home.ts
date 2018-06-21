@@ -4,82 +4,45 @@ import {
 import {
   NavController
 } from 'ionic-angular';
-import {
-  MSAdal,
-  AuthenticationContext,
-  AuthenticationResult
-} from '@ionic-native/ms-adal';
+import { global } from "../../app/global";
 
-import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 
 export class HomePage {
-  isAuthenticated: boolean = false;
-  message = '';
-  authResult: AuthenticationResult;
-  projects: Object[];
+  // set by innerHTML for method changes to work and by field to keep of page refreshes.
+  dateNow = new Date().toLocaleString();
+  logStatus = "home msg";
+  authStatus = "";
+  timeNow = "now";
 
-  /*
-      SCAI NOTE: 
-      1) Able to see the login page on AAD, but the tenant was wrong. Change to use :
-        authority: https://login.windows.net/citizant.onmicrosoft.com
-        resource: https://graph.windows.net
-        client ID: a0ac5fdd-442b-416c-9c4b-aefe509de5c7
-        reply URL: http://localhost:8100
-        tenant: citizant.onmicrosoft.com, 
 
-  */
-  /* Ver 1.0:   */
-  authority = 'https://login.windows.net/common';
-  //resourceUrl = 'https://graph.windows.net';
-  // use v2.0 Graph API with v1.0 Authority :
-  resourceUrl = 'https://graph.microsoft.com';
-
-  /* Ver 2.0: 
-    authority = 'https://login.microsoft.com/common';
-    resourceUrl = 'https://graph.microsoft.com';
-   */
-  clientId = 'a0ac5fdd-442b-416c-9c4b-aefe509de5c7';
-  redirectUrl = 'http://localhost:8100';
-  constructor(public navCtrl: NavController, private msAdal: MSAdal, private http: HttpClient) {
-
+  constructor(public navCtrl: NavController) {
+    this.init();
   }
 
-  acquireToken() {
-    let authContext: AuthenticationContext = this.msAdal.createAuthenticationContext(this.authority);
-
-
-    authContext.acquireTokenAsync(this.resourceUrl, this.clientId, this.redirectUrl, '', '')
-      .then((authResponse: AuthenticationResult) => {
-        this.isAuthenticated = true;
-        this.message = "success";
-        this.authResult = authResponse;
-        console.log('AuthResponse: ', authResponse);
-        console.log('ID Token is', authResponse.idToken);
-        console.log('Access Token is', authResponse.accessToken);
-        console.log('UserInfo: ', authResponse.userInfo.givenName);
-        console.log('Token will expire on', authResponse.expiresOn);
-      })
-      .catch((e: any) => { this.message = "Failed" + e; console.log('Authentication failed', e) });
+  public init() {
+    console.log("populating home page");
+    this.timeNow = this.setHtml("timeNow", new Date().toLocaleString());
+    if (global.authResult) {
+      this.logStatus = this.setHtml("logStatus", "Status: Logged in v" + global.ver);
+      this.authStatus = this.setHtml("authStatus", "Name: " + global.authResult.userInfo.givenName + "<br>Access Token: " + global.authResult.accessToken + "<br>Expires: " + global.authResult.expiresOn);
+    } else {
+      this.logStatus = this.setHtml("logStatus", "Status: Not logged in");
+    }
+    return new Date().toDateString();
   }
-
-  getProjectsList() {
-    let url = "https://graph.microsoft.com/v1.0/sites/root/lists/da7cd400-0cd9-4dde-9167-3049747f195a/items?expand=fields";
-    let resp = this.http.get(url, { headers: { "Authorization": "Bearer " + this.authResult.accessToken } });
-    resp.subscribe(
-      res => {
-        this.projects = res['value'];
-        console.log("Found projects : " + this.projects.length + ": ", this.projects);
-      },
-      err => {
-        console.log("Error Fetching data...", err);
-      }
-    );
+  public setHtml(elementName, html) {
+    var element = document.getElementById(elementName);
+    if (element) {
+      element.innerHTML = html;
+      console.log("Set " + elementName + ":" + html);
+    } else {
+      console.log("unable to set " + elementName + ":" + html);
+    }
+    return html;
   }
-
-
 
 }
