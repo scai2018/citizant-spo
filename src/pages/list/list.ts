@@ -17,10 +17,10 @@ export class ListPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private http: HttpClient) {
     console.log("populating list page");
-    this.getActivitiesList();
+    this.getProjectsList();
   }
 
-  getActivitiesList() {
+  getProjectsList() {
 
     if (global.ver == 1) {
       this.url = global.resourceUrl2 + "/v1.0/sites/root/lists/" + global.activitesListID + "/items?expand=fields";

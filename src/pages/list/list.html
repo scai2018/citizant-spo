@@ -1,49 +1,73 @@
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Activities</ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <button
+            ion-button
+            menuToggle
+        >
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Projects</ion-title>
+    </ion-navbar>
 </ion-header>
 
 <ion-content>
-    <i icon ion-refresh (click)="getActivitiesList()"></i>  Status:<div id="queryStatus"></div> 
-    <ion-grid >
+    <ion-grid>
         <ion-row class="ion-header">
-          <ion-col>
-            Project
-          </ion-col>
-          <ion-col>
-            Owner
-          </ion-col>
-          <ion-col>
-            Status
-          </ion-col>
-        </ion-row>    
-        <ion-row *ngFor="let project of projects">
-          <ion-col>
-              {{project.fields.Title}}
-          </ion-col>
-          <ion-col>
-            {{project.fields.Project_x0020_Manager}}
-          </ion-col>
-          <ion-col>
-              {{project.fields.Status}}
+            <ion-col>
+                <button
+                    ion-button
+                    ion-refresh
+                >
+                    <ion-icon
+                        ion-refresh
+                        name="refresh"
+                        (click)="getProjectsList()"
+                    ></ion-icon>
+                </button>
             </ion-col>
+            <ion-col id="queryStatus"></ion-col>
         </ion-row>
-      </ion-grid>
-  
-  <ion-list>
-    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
-      <ion-icon [name]="item.icon" item-start></ion-icon>
-      {{item.title}}
-      <div class="item-note" item-end>
-        {{item.note}}
-      </div>
-    </button>
-  </ion-list>
-  <div *ngIf="selectedItem" padding>
-    You navigated here from <b>{{selectedItem.title}}</b>
-  </div>
+    </ion-grid>
+
+    <ion-grid>
+        <ion-row class="ion-header">
+            <ion-col>Project</ion-col>
+            <ion-col>Owner</ion-col>
+            <ion-col>Status</ion-col>
+        </ion-row>
+        <ion-row *ngFor="let project of projects">
+            <ion-col>{{project.fields.Title}}</ion-col>
+            <ion-col>
+                {{project.fields.Project_x0020_Manager}}
+            </ion-col>
+            <ion-col>{{project.fields.Status}}</ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <ion-list>
+        <button
+            ion-item
+            *ngFor="let item of items"
+            (click)="itemTapped($event, item)"
+        >
+            <ion-icon
+                [name]="item.icon"
+                item-start
+            ></ion-icon>
+            {{item.title}}
+            <div
+                class="item-note"
+                item-end
+            >
+                {{item.note}}
+            </div>
+        </button>
+    </ion-list>
+    <div
+        *ngIf="selectedItem"
+        padding
+    >
+        You navigated here from
+        <b>{{selectedItem.title}}</b>
+    </div>
 </ion-content>
