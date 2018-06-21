@@ -5,22 +5,23 @@ import { HttpClient } from '@angular/common/http';
 import { global } from "../../app/global";
 @Component({
   selector: 'page-list',
-  templateUrl: 'list.html'
+  templateUrl: 'tasks.html'
 })
-export class ListPage {
-  projects: Object[];
+export class TasksPage {
+  tasks: Object[];
   url: string;
 
-  selectedProject: any;
+  selectedItem: any;
+  icons: string[];
+  items: Array<{ title: string, note: string, icon: string }>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private http: HttpClient) {
     console.log("populating list page");
-    this.selectedProject = navParams.get('project');
-    this.getProjectsList();
+    this.getTasksList();
   }
 
-  getProjectsList() {
-
+  getTasksList() {
+//TODO: needs correct URL
     if (global.ver == 1) {
       this.url = global.resourceUrl2 + "/v1.0/sites/root/lists/" + global.activitesListID + "/items?expand=fields";
     } else {
@@ -36,23 +37,23 @@ export class ListPage {
       let resp = this.http.get(url, { headers: { "Authorization": "Bearer " + global.authResult.accessToken } });
       resp.subscribe(
         res => {
-          this.projects = res['value'];
-          this.setHtml("queryStatus", "Found " + this.projects.length + " activites");
+          this.tasks = res['value'];
+          this.setHtml("queryStatus", "Found " + this.tasks.length + " activites");
         },
         err => {
           this.setHtml("queryStatus", "Error Fetching data... " + err.message);
         }
       );
     } else {
-      this.projects = null;
+      this.tasks = null;
       this.setHtml("queryStatus", "You are not logged in ");
     }
   }
 
-  projectTapped(event, project) {
+  itemTapped(event, item) {
     // That's right, we're pushing to ourselves!
-    this.navCtrl.push(ListPage, {
-      project: project
+    this.navCtrl.push(TasksPage, {
+      item: item
     });
   }
   public setHtml(elementName, html) {

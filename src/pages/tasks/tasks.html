@@ -6,7 +6,7 @@
         >
             <ion-icon name="menu"></ion-icon>
         </button>
-        <ion-title>Projects</ion-title>
+        <ion-title>Tasks</ion-title>
     </ion-navbar>
 </ion-header>
 
@@ -21,7 +21,7 @@
                     <ion-icon
                         ion-refresh
                         name="refresh"
-                        (click)="getProjectsList()"
+                        (click)="getTasksList()"
                     ></ion-icon>
                 </button>
             </ion-col>
@@ -31,34 +31,23 @@
 
     <ion-grid>
         <ion-row class="ion-header">
-            <ion-col>Project</ion-col>
+            <ion-col>Task</ion-col>
             <ion-col>Owner</ion-col>
             <ion-col>Status</ion-col>
         </ion-row>
-        <ion-row
-            *ngFor="let project of projects"
-            (click)="projectTapped($event, project)"
-        >
-            <ion-col>{{project.fields.Title}}</ion-col>
+        <ion-row *ngFor="let task of tasks">
+            <ion-col>{{task.fields.Title}}</ion-col>
             <ion-col>
-                {{project.fields.Project_x0020_Manager}}
+                {{task.fields.Project_x0020_Manager}}
             </ion-col>
-            <ion-col>{{project.fields.Status}}</ion-col>
+            <ion-col>{{task.fields.Status}}</ion-col>
         </ion-row>
     </ion-grid>
-<hr>
     <div
-        *ngIf="selectedProject"
+        *ngIf="selectedTask"
         padding
     >
         You navigated here from
-        ID: <b>{{selectedProject.fields.id}}</b><br>
-        Title: <b>{{selectedProject.fields.Title}}</b><br>
-        Status: <b>{{selectedProject.fields.Status}}</b><br>
-        Manager: <b>{{selectedProject.fields.Project_x0020_Manager}}</b><br>
-        Created: <b>{{selectedProject.fields.Created}}</b><br>
-        Modified: <b>{{selectedProject.fields.Modified}}</b><br>
-
+        <b>{{selectedTask.title}}</b>
     </div>
-    <hr>
 </ion-content>

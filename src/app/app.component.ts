@@ -11,6 +11,7 @@ import {
 import { global } from "./global";
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
+import { TasksPage } from '../pages/tasks/tasks';
 
 @Component({
   templateUrl: 'app.html'
@@ -30,7 +31,8 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Home', component: HomePage },
-      { title: 'Projects', component: ListPage }
+      { title: 'Projects', component: ListPage },
+      { title: 'Tasks', component: TasksPage }
     ];
 
   }
@@ -86,7 +88,8 @@ export class MyApp {
         this.isAuthenticated = false;
         console.log('Authentication failed', e)
       });
-  }
+      this.openPage(this.pages[0]);
+    }
 
   logout() {
     let authority = global.authority1;
