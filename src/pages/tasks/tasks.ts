@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
 
 import { global } from "../../app/global";
+import { TaskDetailPage } from './taskDetail';
 @Component({
   selector: 'page-list',
   templateUrl: 'tasks.html'
@@ -11,17 +12,16 @@ export class TasksPage {
   tasks: Object[];
   url: string;
 
-  selectedItem: any;
-  icons: string[];
-  items: Array<{ title: string, note: string, icon: string }>;
+  selectedTask: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private http: HttpClient) {
     console.log("populating list page");
+    this.selectedTask = navParams.get('task');
     this.getTasksList();
   }
 
   getTasksList() {
-//TODO: needs correct URL
+
     if (global.ver == 1) {
       this.url = global.resourceUrl2 + "/v1.0/sites/root/lists/" + global.activitesListID + "/items?expand=fields";
     } else {
@@ -38,7 +38,7 @@ export class TasksPage {
       resp.subscribe(
         res => {
           this.tasks = res['value'];
-          this.setHtml("queryStatus", "Found " + this.tasks.length + " activites");
+          this.setHtml("queryStatus", "Found " + this.tasks.length + " tasks");
         },
         err => {
           this.setHtml("queryStatus", "Error Fetching data... " + err.message);
@@ -50,10 +50,10 @@ export class TasksPage {
     }
   }
 
-  itemTapped(event, item) {
+  taskTapped(event, task) {
     // That's right, we're pushing to ourselves!
-    this.navCtrl.push(TasksPage, {
-      item: item
+    this.navCtrl.push(TaskDetailPage, {
+      task: task
     });
   }
   public setHtml(elementName, html) {

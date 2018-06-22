@@ -10,14 +10,21 @@ import {
 
 import { global } from "./global";
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
+import { ProjectsPage } from '../pages/projects/projects';
+import { ProjectDetailPage } from '../pages/projects/projectDetail';
 import { TasksPage } from '../pages/tasks/tasks';
+import { TaskDetailPage } from '../pages/tasks/taskDetail';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
+
+  // for testing though we might want to store for user at some point too.
+  //testUser: string = "david.abigt@citizant.com";
+  // set to blank for non test build
+  testUser: string = "";
 
   rootPage: any = HomePage;
 
@@ -31,7 +38,7 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Home', component: HomePage },
-      { title: 'Projects', component: ListPage },
+      { title: 'Projects', component: ProjectsPage },
       { title: 'Tasks', component: TasksPage }
     ];
 
@@ -67,7 +74,7 @@ export class MyApp {
     console.log('Getting context from: ', authority);
     let authContext: AuthenticationContext = this.msAdal.createAuthenticationContext(authority);
 
-    authContext.acquireTokenAsync(authUrl, global.clientId, global.redirectUrl, '', '')
+    authContext.acquireTokenAsync(authUrl, global.clientId, global.redirectUrl, this.testUser, '')
       .then((authResponse: AuthenticationResult) => {
         global.authResult = authResponse;
         this.isAuthenticated = true;
@@ -83,7 +90,7 @@ export class MyApp {
       .catch((e: any) => {
         this.setHtml("logStatus", "Failed: " + e);
         this.setHtml("authStatus", "");
-
+        authContext.tokenCache.clear();
         global.authResult = null;
         this.isAuthenticated = false;
         console.log('Authentication failed', e)

@@ -1,0 +1,40 @@
+<ion-header>
+    <ion-navbar>
+        <button
+            ion-button
+            menuToggle
+        >
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Projects</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <div
+        *ngIf="selectedProject"
+        padding
+    >
+        ID:
+        <b>{{selectedProject.fields.id}}</b>
+        <br>
+        Title:
+        <b>{{selectedProject.fields.Title}}</b>
+        <br>
+        Status:
+        <b>{{selectedProject.fields.Status}}</b>
+        <br>
+        Manager:
+        <b>
+            {{selectedProject.fields.Project_x0020_Manager}}
+        </b>
+        <br>
+        Created:
+        <b>{{selectedProject.fields.Created}}</b>
+        <br>
+        Modified:
+        <b>{{selectedProject.fields.Modified}}</b>
+        <br>
+
+    </div>
+</ion-content>

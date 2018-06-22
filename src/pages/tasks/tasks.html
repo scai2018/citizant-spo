@@ -35,19 +35,13 @@
             <ion-col>Owner</ion-col>
             <ion-col>Status</ion-col>
         </ion-row>
-        <ion-row *ngFor="let task of tasks">
+        <ion-row
+            *ngFor="let task of tasks"
+            (click)="taskTapped($event, task)"
+        >
             <ion-col>{{task.fields.Title}}</ion-col>
-            <ion-col>
-                {{task.fields.Project_x0020_Manager}}
-            </ion-col>
+            <ion-col>{{task.fields.Project_x0020_Manager}}</ion-col>
             <ion-col>{{task.fields.Status}}</ion-col>
         </ion-row>
     </ion-grid>
-    <div
-        *ngIf="selectedTask"
-        padding
-    >
-        You navigated here from
-        <b>{{selectedTask.title}}</b>
-    </div>
 </ion-content>

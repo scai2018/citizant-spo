@@ -3,11 +3,12 @@ import { NavController, NavParams } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
 
 import { global } from "../../app/global";
+import { ProjectDetailPage } from './projectDetail';
 @Component({
   selector: 'page-list',
-  templateUrl: 'list.html'
+  templateUrl: 'projects.html'
 })
-export class ListPage {
+export class ProjectsPage {
   projects: Object[];
   url: string;
 
@@ -37,7 +38,7 @@ export class ListPage {
       resp.subscribe(
         res => {
           this.projects = res['value'];
-          this.setHtml("queryStatus", "Found " + this.projects.length + " activites");
+          this.setHtml("queryStatus", "Found " + this.projects.length + " projects");
         },
         err => {
           this.setHtml("queryStatus", "Error Fetching data... " + err.message);
@@ -51,7 +52,7 @@ export class ListPage {
 
   projectTapped(event, project) {
     // That's right, we're pushing to ourselves!
-    this.navCtrl.push(ListPage, {
+    this.navCtrl.push(ProjectDetailPage, {
       project: project
     });
   }

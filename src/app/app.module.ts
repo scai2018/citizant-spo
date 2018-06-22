@@ -7,13 +7,19 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
+import { ProjectsPage } from '../pages/projects/projects';
+import { ProjectDetailPage } from '../pages/projects/projectDetail';
+import { TasksPage } from '../pages/tasks/tasks';
+import { TaskDetailPage } from '../pages/tasks/taskDetail';
 import { MSAdal } from '@ionic-native/ms-adal';
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    ListPage
+    ProjectsPage,
+    ProjectDetailPage,
+    TasksPage,
+    TaskDetailPage
   ],
   imports: [
     BrowserModule,
@@ -24,7 +30,10 @@ import { MSAdal } from '@ionic-native/ms-adal';
   entryComponents: [
     MyApp,
     HomePage,
-    ListPage
+    ProjectsPage,
+    ProjectDetailPage,
+    TasksPage,
+    TaskDetailPage
   ],
   providers: [
     StatusBar,
