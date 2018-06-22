@@ -8,12 +8,10 @@ import {
   AuthenticationResult
 } from '@ionic-native/ms-adal';
 
-import { global } from "./global";
+import { global, CommonMethods } from "./global";
 import { HomePage } from '../pages/home/home';
 import { ProjectsPage } from '../pages/projects/projects';
-import { ProjectDetailPage } from '../pages/projects/projectDetail';
 import { TasksPage } from '../pages/tasks/tasks';
-import { TaskDetailPage } from '../pages/tasks/taskDetail';
 
 @Component({
   templateUrl: 'app.html'
@@ -78,8 +76,8 @@ export class MyApp {
       .then((authResponse: AuthenticationResult) => {
         global.authResult = authResponse;
         this.isAuthenticated = true;
-        this.setHtml("logStatus", "Logged in");
-        this.setHtml("authStatus", "Name: " + authResponse.userInfo.givenName + "<br>Access Token: " + authResponse.accessToken + "<br>Expires: " + authResponse.expiresOn);
+        CommonMethods.setHtml("logStatus", "Logged in");
+        CommonMethods.setHtml("authStatus", "Name: " + authResponse.userInfo.givenName + "<br>Access Token: " + authResponse.accessToken + "<br>Expires: " + authResponse.expiresOn);
 
         console.log('AuthResponse: ', authResponse);
         console.log('ID Token is', authResponse.idToken);
@@ -88,15 +86,15 @@ export class MyApp {
         console.log('Token will expire on', authResponse.expiresOn);
       })
       .catch((e: any) => {
-        this.setHtml("logStatus", "Failed: " + e);
-        this.setHtml("authStatus", "");
+        CommonMethods.setHtml("logStatus", "Failed: " + e);
+        CommonMethods.setHtml("authStatus", "");
         authContext.tokenCache.clear();
         global.authResult = null;
         this.isAuthenticated = false;
         console.log('Authentication failed', e)
       });
-      this.openPage(this.pages[0]);
-    }
+    this.openPage(this.pages[0]);
+  }
 
   logout() {
     let authority = global.authority1;
@@ -109,20 +107,9 @@ export class MyApp {
     global.authResult = null;
     this.isAuthenticated = false;
 
-    this.setHtml("logStatus", "Logged out");
-    this.setHtml("authStatus", "");
+    CommonMethods.setHtml("logStatus", "Logged out");
+    CommonMethods.setHtml("authStatus", "");
     this.openPage(this.pages[0]);
   }
-
-  setHtml(elementName, html) {
-    var element = document.getElementById(elementName);
-    if (element) {
-      element.innerHTML = html;
-      console.log("Set " + elementName + ":" + html);
-    } else {
-      console.log("unable to set " + elementName + ":" + html);
-    }
-  }
-
 }
 

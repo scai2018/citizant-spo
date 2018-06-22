@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { HttpClient } from '@angular/common/http';
 
-import { global } from "../../app/global";
 @Component({
   selector: 'page-list',
   templateUrl: 'taskDetail.html'
@@ -13,7 +11,7 @@ export class TaskDetailPage {
 
   selectedTask: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private http: HttpClient) {
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
     console.log("populating taskDetail page");
     this.selectedTask = navParams.get('task');
   }

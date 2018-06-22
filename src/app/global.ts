@@ -1,3 +1,5 @@
+// import { Component } from '@angular/core';
+
 export var global = {
     authResult: null,
     ver: 1,
@@ -27,4 +29,21 @@ export var global = {
     redirectUrl: 'http://localhost:8100'
 
 
+};
+
+
+// @Component({
+//     providers: [CommonMethods]
+//  })
+export class CommonMethods {
+    public static setHtml(elementName, html) {
+        var element = document.getElementById(elementName);
+        if (element) {
+            element.innerHTML = html;
+            console.log("Set " + elementName + ":" + html);
+        } else {
+            console.log("unable to set " + elementName + ":" + html);
+        }
+        return html;
+    }
 };

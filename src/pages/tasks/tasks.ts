@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
 
-import { global } from "../../app/global";
+import { global, CommonMethods } from "../../app/global";
 import { TaskDetailPage } from './taskDetail';
 @Component({
   selector: 'page-list',
@@ -38,15 +38,15 @@ export class TasksPage {
       resp.subscribe(
         res => {
           this.tasks = res['value'];
-          this.setHtml("queryStatus", "Found " + this.tasks.length + " tasks");
+          CommonMethods.setHtml("queryStatus", "Found " + this.tasks.length + " tasks");
         },
         err => {
-          this.setHtml("queryStatus", "Error Fetching data... " + err.message);
+          CommonMethods.setHtml("queryStatus", "Error Fetching data... " + err.message);
         }
       );
     } else {
       this.tasks = null;
-      this.setHtml("queryStatus", "You are not logged in ");
+      CommonMethods.setHtml("queryStatus", "You are not logged in ");
     }
   }
 
@@ -56,14 +56,4 @@ export class TasksPage {
       task: task
     });
   }
-  public setHtml(elementName, html) {
-    var element = document.getElementById(elementName);
-    if (element) {
-      element.innerHTML = html;
-      console.log("Set " + elementName + ":" + html);
-    } else {
-      console.log("unable to set " + elementName + ":" + html);
-    }
-  }
-
 }

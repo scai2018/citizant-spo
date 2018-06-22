@@ -4,7 +4,7 @@ import {
 import {
   NavController
 } from 'ionic-angular';
-import { global } from "../../app/global";
+import { global, CommonMethods } from "../../app/global";
 
 @Component({
   selector: 'page-home',
@@ -24,22 +24,12 @@ export class HomePage {
   public init() {
     console.log("populating home page");
     if (global.authResult) {
-      this.logStatus = this.setHtml("logStatus", "Status: Logged in v" + global.ver);
-      this.authStatus = this.setHtml("authStatus", "Name: " + global.authResult.userInfo.givenName + "<br>Access Token: " + global.authResult.accessToken + "<br>Expires: " + global.authResult.expiresOn);
+      this.logStatus = CommonMethods.setHtml("logStatus", "Status: Logged in v" + global.ver);
+      this.authStatus = CommonMethods.setHtml("authStatus", "Name: " + global.authResult.userInfo.givenName + "<br>Access Token: " + global.authResult.accessToken + "<br>Expires: " + global.authResult.expiresOn);
     } else {
-      this.logStatus = this.setHtml("logStatus", "Status: Not logged in");
+      this.logStatus = CommonMethods.setHtml("logStatus", "Status: Not logged in");
     }
     return new Date().toDateString();
-  }
-  public setHtml(elementName, html) {
-    var element = document.getElementById(elementName);
-    if (element) {
-      element.innerHTML = html;
-      console.log("Set " + elementName + ":" + html);
-    } else {
-      console.log("unable to set " + elementName + ":" + html);
-    }
-    return html;
   }
 
 }
