@@ -6,13 +6,17 @@
   </ion-header>
 
   <ion-content>
-    <ion-list>
-      <button *ngIf="!isAuthenticated" menuClose ion-item (click)="acquireToken(1)">Login v1</button>
-      <button *ngIf="!isAuthenticated" menuClose ion-item (click)="acquireToken(2)">Login v2</button>
-      <button *ngIf="isAuthenticated" menuClose ion-item (click)="logout()">Logout</button>
+    <ion-list *ngIf="isAuthenticated">
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
         {{p.title}}
       </button>
+    </ion-list>
+    <ion-list>
+      <button *ngIf="!isAuthenticated" menuClose ion-item (click)="acquireToken(1)">Login</button>
+      <!--
+      <button *ngIf="!isAuthenticated" menuClose ion-item (click)="acquireToken(2)">Login v2</button>
+      -->
+      <button *ngIf="isAuthenticated" menuClose ion-item (click)="logout()">Logout</button>
     </ion-list>
   </ion-content>
 

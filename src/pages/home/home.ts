@@ -13,7 +13,8 @@ import { global, CommonMethods } from "../../app/global";
 
 export class HomePage {
   // set by innerHTML for method changes to work and by field to keep of page refreshes.
-  logStatus = "home msg";
+  // TODO: may just need one msg to display regarding user login
+  logStatus = "";
   authStatus = "";
 
 
@@ -24,10 +25,14 @@ export class HomePage {
   public init() {
     console.log("populating home page");
     if (global.authResult) {
-      this.logStatus = CommonMethods.setHtml("logStatus", "Status: Logged in v" + global.ver);
-      this.authStatus = CommonMethods.setHtml("authStatus", "Name: " + global.authResult.userInfo.givenName + "<br>Access Token: " + global.authResult.accessToken + "<br>Expires: " + global.authResult.expiresOn);
+      this.authStatus = "Welcome, "+ global.authResult.userInfo.givenName + "!";
+
+      //this.logStatus = CommonMethods.setHtml("logStatus", "Status: Logged in v" + global.ver);
+      //this.authStatus = CommonMethods.setHtml("authStatus", "Name: " + global.authResult.userInfo.givenName + "<br>Access Token: " + global.authResult.accessToken + "<br>Expires: " + global.authResult.expiresOn);
     } else {
-      this.logStatus = CommonMethods.setHtml("logStatus", "Status: Not logged in");
+      this.authStatus = "Please login with your Citizant account!";
+
+      //his.logStatus = CommonMethods.setHtml("logStatus", "Status: Not logged in");
     }
     return new Date().toDateString();
   }

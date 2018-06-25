@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, ToastController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import {
@@ -30,7 +30,7 @@ export class MyApp {
 
   isAuthenticated = false;
 
-  constructor(public platform: Platform, private msAdal: MSAdal, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public platform: Platform, private msAdal: MSAdal, public statusBar: StatusBar, public splashScreen: SplashScreen, private toastCtrl:ToastController) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -76,9 +76,11 @@ export class MyApp {
       .then((authResponse: AuthenticationResult) => {
         global.authResult = authResponse;
         this.isAuthenticated = true;
-        CommonMethods.setHtml("logStatus", "Logged in");
-        CommonMethods.setHtml("authStatus", "Name: " + authResponse.userInfo.givenName + "<br>Access Token: " + authResponse.accessToken + "<br>Expires: " + authResponse.expiresOn);
-
+        //CommonMethods.setHtml("logStatus", "Logged in");
+        let authStatus = "Welcome, " + authResponse.userInfo.givenName + "!";
+        CommonMethods.setHtml("authStatus",authStatus);
+        //CommonMethods.setHtml("authStatus", "Name: " + authResponse.userInfo.givenName + "<br>Access Token: " + authResponse.accessToken + "<br>Expires: " + authResponse.expiresOn);
+        this.presentToast(authResponse.userInfo.givenName + " login successfully");
         console.log('AuthResponse: ', authResponse);
         console.log('ID Token is', authResponse.idToken);
         console.log('Access Token is', authResponse.accessToken);
@@ -86,8 +88,10 @@ export class MyApp {
         console.log('Token will expire on', authResponse.expiresOn);
       })
       .catch((e: any) => {
-        CommonMethods.setHtml("logStatus", "Failed: " + e);
-        CommonMethods.setHtml("authStatus", "");
+        let authStatus = "Failed to login. Please try it later.";
+        CommonMethods.setHtml("authStatus",authStatus);
+        //CommonMethods.setHtml("logStatus", "Failed: " + e);
+        //CommonMethods.setHtml("authStatus", "");
         authContext.tokenCache.clear();
         global.authResult = null;
         this.isAuthenticated = false;
@@ -109,7 +113,23 @@ export class MyApp {
 
     CommonMethods.setHtml("logStatus", "Logged out");
     CommonMethods.setHtml("authStatus", "");
+    // SCAI: TODO - add toast msg 
+    this.presentToast("User logout successfully");
     this.openPage(this.pages[0]);
+  }
+
+  presentToast(msg:string) {
+    let toast = this.toastCtrl.create({
+      message: msg,
+      duration: 3000,
+      position: 'top'
+    });
+  
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+  
+    toast.present();
   }
 }
 
