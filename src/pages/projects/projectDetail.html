@@ -11,30 +11,36 @@
 </ion-header>
 
 <ion-content>
-    <div
+    <ion-grid
         *ngIf="selectedProject"
         padding
     >
-        ID:
-        <b>{{selectedProject.fields.id}}</b>
-        <br>
-        Title:
-        <b>{{selectedProject.fields.Title}}</b>
-        <br>
-        Status:
-        <b>{{selectedProject.fields.Status}}</b>
-        <br>
-        Manager:
-        <b>
-            {{selectedProject.fields.Project_x0020_Manager}}
-        </b>
-        <br>
-        Created:
-        <b>{{selectedProject.fields.Created}}</b>
-        <br>
-        Modified:
-        <b>{{selectedProject.fields.Modified}}</b>
-        <br>
+        <ion-row >
+            <ion-col text-center class="ion-header-left label-width">Label</ion-col>
+            <ion-col text-center class="ion-header-right">Value</ion-col>
+        </ion-row>
+        <ion-row >
+            <ion-col class="ion-label">Project:</ion-col>
+            <ion-col >{{selectedProject.fields.Title}}</ion-col>
+        </ion-row>
+        <ion-row >
+            <ion-col class="ion-label">Status:</ion-col>
+            <ion-col >{{selectedProject.fields.Status}}</ion-col>
+        </ion-row>
+        <ion-row >
+            <ion-col class="ion-label">Manager:</ion-col>
+            <ion-col >
+                {{selectedProject.fields.Project_x0020_Manager}}
+            </ion-col>
+        </ion-row>
+        <ion-row >
+            <ion-col class="ion-label">Created:</ion-col>
+            <ion-col >{{selectedProject.fields.Created}}</ion-col>
+        </ion-row>
+        <ion-row >
+            <ion-col class="ion-label">Modified:</ion-col>
+            <ion-col >{{selectedProject.fields.Modified}}</ion-col>
+        </ion-row>
+    </ion-grid>
 
-    </div>
 </ion-content>

@@ -14,3 +14,61 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+.col {
+    border: 1px solid black;
+}
+
+.rounded {
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+.ion-header {
+    align-content: center;
+    text-align: center;
+    background-color: blue;
+    color: white;
+    font-style: bold;
+}
+.ion-header-left {
+    align-content: center;
+    text-align: center;
+    border-top-left-radius: 20px;
+    background-color: blue;
+    color: white;
+    font-style: bold;
+}
+.ion-header-right {
+    align-content: center;
+    text-align: center;
+    border-top-right-radius: 20px;
+    background-color: blue;
+    color: white;
+    font-style: bold;
+}
+.label-width {
+    max-width: 20%;  
+}
+.ion-label {
+    align-content: right;
+    color: black;
+    font-style: bold;
+    font-weight: bold;
+    max-width: 20%;
+}
+
+ .statusInfo {
+//    background: yellow;
+    margin-top: 1%;
+    border: 0px solid black;
+}
+
+.icon-col {
+//    border: 1px solid red;
+    width: 75px;
+    max-width: 75px;
+    border: 0px solid black;
+}

@@ -12,8 +12,8 @@
 
 <ion-content>
     <ion-grid>
-        <ion-row class="ion-header">
-            <ion-col>
+        <ion-row >
+            <ion-col class="icon-col">
                 <button
                     ion-button
                     ion-refresh
@@ -25,25 +25,25 @@
                     ></ion-icon>
                 </button>
             </ion-col>
-            <ion-col id="queryStatus"></ion-col>
+            <ion-col  id="queryStatus" class="statusInfo">queryStatus</ion-col>
         </ion-row>
     </ion-grid>
 
     <ion-grid>
-        <ion-row class="ion-header">
-            <ion-col>Project</ion-col>
-            <ion-col>Owner</ion-col>
-            <ion-col>Status</ion-col>
+        <ion-row >
+            <ion-col class="ion-header-left">Project</ion-col>
+            <ion-col class="ion-header">Manager</ion-col>
+            <ion-col class="ion-header-right">Status</ion-col>
         </ion-row>
-        <ion-row
+        <ion-row 
             *ngFor="let project of projects"
             (click)="projectTapped($event, project)"
         >
-            <ion-col>{{project.fields.Title}}</ion-col>
-            <ion-col>
+            <ion-col class="withBorder">{{project.fields.Title}}</ion-col>
+            <ion-col class="withBorder">
                 {{project.fields.Project_x0020_Manager}}
             </ion-col>
-            <ion-col>{{project.fields.Status}}</ion-col>
+            <ion-col class="withBorder">{{project.fields.Status}}</ion-col>
         </ion-row>
     </ion-grid>
 </ion-content>

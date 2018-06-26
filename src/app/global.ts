@@ -4,6 +4,7 @@ export var global = {
     authResult: null,
     ver: 1,
     activitesListID: 'da7cd400-0cd9-4dde-9167-3049747f195a',
+    mock: 1,
 
     /*
   SCAI NOTE: 
