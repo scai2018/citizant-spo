@@ -12,8 +12,8 @@
 
 <ion-content>
     <ion-grid>
-        <ion-row class="ion-header">
-            <ion-col>
+        <ion-row>
+            <ion-col class="icon-col">
                 <button
                     ion-button
                     ion-refresh
@@ -25,23 +25,23 @@
                     ></ion-icon>
                 </button>
             </ion-col>
-            <ion-col id="queryStatus"></ion-col>
+            <ion-col id="queryStatus" class="statusInfo"></ion-col>
         </ion-row>
     </ion-grid>
 
     <ion-grid>
-        <ion-row class="ion-header">
-            <ion-col>Task</ion-col>
-            <ion-col>Status</ion-col>
-            <ion-col>\% Complete</ion-col>
+        <ion-row>
+            <ion-col class="ion-header-left">Task</ion-col>
+            <ion-col class="ion-header">Status</ion-col>
+            <ion-col class="ion-header-right">\% Complete</ion-col>
         </ion-row>
         <ion-row
             *ngFor="let task of tasks"
             (click)="taskTapped($event, task)"
         >
-            <ion-col>{{task.fields.Title}}</ion-col>
-            <ion-col>{{task.fields.Status}}</ion-col>
-            <ion-col>{{task.fields.PercentComplete}}</ion-col>
+            <ion-col class="withBorder">{{task.fields.Title}}</ion-col>
+            <ion-col class="withBorder">{{task.fields.Status}}</ion-col>
+            <ion-col class="withBorder">{{task.fields.PercentComplete}}</ion-col>
         </ion-row>
     </ion-grid>
 </ion-content>

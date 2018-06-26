@@ -12,12 +12,16 @@
 
 <ion-content>
     <ion-grid *ngIf="selectedTask">
+        <ion-row >
+            <ion-col text-center class="ion-header-left label-width">Label</ion-col>
+            <ion-col text-center class="ion-header-right">Value</ion-col>
+        </ion-row>        
         <ion-row>
-            <ion-col col-4 class="item-header">Task Name:</ion-col>
+            <ion-col class="ion-label">Task Name</ion-col>
             <ion-col> {{selectedTask.fields.Title}}</ion-col>
         </ion-row>  
         <ion-row>
-            <ion-col col-4 class="item-header">Predecessors:</ion-col>
+            <ion-col class="ion-label">Predecessors</ion-col>
             <ion-col>
                 <div *ngFor="let p of selectedTask.fields.Predecessors">
                     {{p.LookupValue}}
@@ -25,27 +29,27 @@
             </ion-col>
         </ion-row>         
         <ion-row>
-            <ion-col col-4 class="item-header">Status:</ion-col> 
+            <ion-col class="ion-label">Status</ion-col> 
             <ion-col>{{selectedTask.fields.Status}}</ion-col>
         </ion-row> 
         <ion-row>
-            <ion-col col-4 class="item-header">\% Complete:</ion-col>
+            <ion-col class="ion-label">\% Complete</ion-col>
             <ion-col>{{selectedTask.fields.PercentComplete}}</ion-col>
         </ion-row>  
         <ion-row>
-            <ion-col col-4 class="item-header">Priority:</ion-col>
+            <ion-col class="ion-label">Priority</ion-col>
             <ion-col>{{selectedTask.fields.Priority}}</ion-col>
         </ion-row>    
         <ion-row>
-            <ion-col col-4 class="item-header">Due Date:</ion-col>
+            <ion-col class="ion-label">Due Date</ion-col>
             <ion-col>{{selectedTask.fields.DueDate}}</ion-col>
         </ion-row>                   
         <ion-row>
-            <ion-col col-4 class="item-header">Created:</ion-col>
+            <ion-col class="ion-label">Created</ion-col>
             <ion-col>{{selectedTask.fields.Created}}</ion-col>
         </ion-row> 
         <ion-row>
-            <ion-col col-4 class="item-header">Modified:</ion-col>
+            <ion-col class="ion-label">Modified</ion-col>
             <ion-col>{{selectedTask.fields.Modified}}</ion-col>
         </ion-row> 
 
