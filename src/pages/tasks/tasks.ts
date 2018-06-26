@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { global, CommonMethods } from "../../app/global";
 import { TaskDetailPage } from './taskDetail';
+
 @Component({
   selector: 'page-list',
   templateUrl: 'tasks.html'
@@ -12,20 +13,20 @@ export class TasksPage {
   tasks: Object[];
   url: string;
 
-  selectedTask: any;
+  //selectedTask: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private http: HttpClient) {
     console.log("populating list page");
-    this.selectedTask = navParams.get('task');
+    //this.selectedTask = navParams.get('task');
     this.getTasksList();
   }
 
   getTasksList() {
 
     if (global.ver == 1) {
-      this.url = global.resourceUrl2 + "/v1.0/sites/root/lists/" + global.activitesListID + "/items?expand=fields";
+      this.url = global.resourceUrl2 + "/v1.0/sites/root/lists/" + global.tasksListID + "/items?expand=fields";
     } else {
-      this.url = global.resourceUrl2 + "/v1.0/sites/root/lists/" + global.activitesListID + "/items?expand=fields";
+      this.url = global.resourceUrl2 + "/v1.0/sites/root/lists/" + global.tasksListID + "/items?expand=fields";
     }
     this.getList(this.url);
 
@@ -38,7 +39,7 @@ export class TasksPage {
       resp.subscribe(
         res => {
           this.tasks = res['value'];
-          CommonMethods.setHtml("queryStatus", "Found " + this.tasks.length + " tasks");
+        CommonMethods.setHtml("queryStatus", "Found " + this.tasks.length + " tasks");
         },
         err => {
           CommonMethods.setHtml("queryStatus", "Error Fetching data... " + err.message);

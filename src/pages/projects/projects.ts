@@ -23,9 +23,9 @@ export class ProjectsPage {
   getProjectsList() {
 
     if (global.ver == 1) {
-      this.url = global.resourceUrl2 + "/v1.0/sites/root/lists/" + global.activitesListID + "/items?expand=fields";
+      this.url = global.resourceUrl2 + "/v1.0/sites/root/lists/" + global.projectsListID + "/items?expand=fields";
     } else {
-      this.url = global.resourceUrl2 + "/v1.0/sites/root/lists/" + global.activitesListID + "/items?expand=fields";
+      this.url = global.resourceUrl2 + "/v1.0/sites/root/lists/" + global.projectsListID + "/items?expand=fields";
     }
     this.getList(this.url);
 

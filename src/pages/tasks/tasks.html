@@ -32,16 +32,16 @@
     <ion-grid>
         <ion-row class="ion-header">
             <ion-col>Task</ion-col>
-            <ion-col>Owner</ion-col>
             <ion-col>Status</ion-col>
+            <ion-col>\% Complete</ion-col>
         </ion-row>
         <ion-row
             *ngFor="let task of tasks"
             (click)="taskTapped($event, task)"
         >
             <ion-col>{{task.fields.Title}}</ion-col>
-            <ion-col>{{task.fields.Project_x0020_Manager}}</ion-col>
             <ion-col>{{task.fields.Status}}</ion-col>
+            <ion-col>{{task.fields.PercentComplete}}</ion-col>
         </ion-row>
     </ion-grid>
 </ion-content>
