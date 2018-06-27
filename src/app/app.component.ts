@@ -44,6 +44,12 @@ export class MyApp {
 
   initializeApp() {
     this.platform.ready().then(() => {
+      // Don't allow the Back button on Andriod to exit the app
+      this.platform.registerBackButtonAction(() => {
+        console.log("Ignore BACK button on Android!");
+        //sometimes the best thing you can do is not think, not wonder, not imagine, not obsess. 
+        //just breathe, and have faith that everything will work out for the best.
+      },1);
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
