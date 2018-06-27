@@ -49,6 +49,7 @@ export class MyApp {
       // Don't allow the Back button on Andriod to exit the app
       this.platform.registerBackButtonAction(() => {
         console.log("Ignore BACK button on Android!");
+        this.presentToast("BACK button is ignored!");
         //sometimes the best thing you can do is not think, not wonder, not imagine, not obsess. 
         //just breathe, and have faith that everything will work out for the best.
       },1);
