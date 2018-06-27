@@ -20,9 +20,6 @@ import { HttpClient } from '@angular/common/http';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  // for testing though we might want to store for user at some point too.
-  //testUser: string = "david.abigt@citizant.com";
-  // set to blank for non test build
   testUser: string = "";
 
   rootPage: any = HomePage;
@@ -31,9 +28,13 @@ export class MyApp {
 
   isAuthenticated = false;
 
-  constructor(public platform: Platform, private msAdal: MSAdal, public statusBar: StatusBar, public splashScreen: SplashScreen, 
-    private toastCtrl:ToastController, private http:HttpClient) {
+  constructor(public platform: Platform, private msAdal: MSAdal, public statusBar: StatusBar, public splashScreen: SplashScreen,
+    private toastCtrl: ToastController, private http: HttpClient) {
     this.initializeApp();
+    if (global.mock == 1) {
+      // for testing though we might want to store for user at some point too.
+      this.testUser = "david.abigt@citizant.com";
+    }
 
     // used for an example of ngFor and navigation
     this.pages = [
@@ -52,7 +53,7 @@ export class MyApp {
         this.presentToast("BACK button is ignored!");
         //sometimes the best thing you can do is not think, not wonder, not imagine, not obsess. 
         //just breathe, and have faith that everything will work out for the best.
-      },1);
+      }, 1);
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
@@ -87,7 +88,7 @@ export class MyApp {
         this.isAuthenticated = true;
         //CommonMethods.setHtml("logStatus", "Logged in");
         let authStatus = "Welcome, " + authResponse.userInfo.givenName + "!";
-        CommonMethods.setHtml("authStatus",authStatus);
+        CommonMethods.setHtml("authStatus", authStatus);
         //CommonMethods.setHtml("authStatus", "Name: " + authResponse.userInfo.givenName + "<br>Access Token: " + authResponse.accessToken + "<br>Expires: " + authResponse.expiresOn);
         this.presentToast(authResponse.userInfo.givenName + " login successfully");
         console.log('AuthResponse: ', authResponse);
@@ -105,14 +106,14 @@ export class MyApp {
             console.log("Found profile: " + global.profile.mail);
           },
           err => {
-            CommonMethods.setHtml("authStatus", "Failed to login. Please try it later." );
+            CommonMethods.setHtml("authStatus", "Failed to login. Please try it later.");
           }
         );
-               
+
       })
       .catch((e: any) => {
         let authStatus = "Failed to login. Please try it later.";
-        CommonMethods.setHtml("authStatus",authStatus);
+        CommonMethods.setHtml("authStatus", authStatus);
         //CommonMethods.setHtml("logStatus", "Failed: " + e);
         //CommonMethods.setHtml("authStatus", "");
         authContext.tokenCache.clear();
@@ -141,17 +142,17 @@ export class MyApp {
     this.openPage(this.pages[0]);
   }
 
-  presentToast(msg:string) {
+  presentToast(msg: string) {
     let toast = this.toastCtrl.create({
       message: msg,
       duration: 3000,
       position: 'top'
     });
-  
+
     toast.onDidDismiss(() => {
       console.log('Dismissed toast');
     });
-  
+
     toast.present();
   }
 }

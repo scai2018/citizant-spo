@@ -12,14 +12,26 @@ export class ProjectsPage {
   projects: Object[];
   url: string;
   selectedProject: any;
-
-  icons: string[];
-  items: Array<{ title: string, note: string, icon: string }>;
+  sortField: string;
+  sortAsc: string;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private http: HttpClient) {
     console.log("populating list page");
     this.selectedProject = navParams.get('project');
+    let sortField = navParams.get('sortField');
+    if (sortField) {
+      this.sortField = sortField;
+    } else {
+      this.sortField = 'Title';
+    }
+    let sortAsc = navParams.get('sortAsc');
+    if (sortAsc) {
+      this.sortAsc = sortAsc;
+    } else {
+      this.sortAsc = 'A';
+    }
+
     this.getProjectsList();
   }
 
@@ -36,11 +48,15 @@ export class ProjectsPage {
   getList(url) {
 
     if (global.authResult) {
+      let sortField = this.sortField;
+      let sortAsc = this.sortAsc;
+
       console.log("Calling:" + url);
       let resp = this.http.get(url, { headers: { "Authorization": "Bearer " + global.authResult.accessToken } });
       resp.subscribe(
         res => {
           this.projects = res['value'];
+          this.sortProjects(sortField, sortAsc);
           CommonMethods.setHtml("queryStatus", "Found " + this.projects.length + " projects");
         },
         err => {
@@ -48,47 +64,8 @@ export class ProjectsPage {
         }
       );
     } else {
-      console.log("Mock:" + global.mock);
-
-      if (global.mock == 1) {
-        // Let's populate this page with some filler content for funzies
-        this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
-          'american-football', 'boat', 'bluetooth', 'build'];
-
-        this.projects = new Array<{ fields: {} }>();
-        let fields: Array<{ id: string, Title: string, Status: string, Project_x0020_Manager: string, Created: string, Modified: string }>;
-
-        fields = [];
-        fields['id']= '1';
-        fields['Title']= 'Project 1';
-        fields['Status']= 'Active';
-        fields['Project_x0020_Manager']= 'Manager 1';
-        fields['Created']= '2018-06-07T16:11:57Z';
-        fields['Modified']= '2018-06-08T17:12:50Z';
-
-        this.items = [];
-        for (let i = 1; i < 11; i++) {
-          this.items.push({
-            title: 'Item ' + i,
-            note: 'This is item #' + i,
-            icon: this.icons[Math.floor(Math.random() * this.icons.length)]
-          });
-        }
-
-        for (var i = 0; i < fields.length; i++) {
-          var key = Object.keys(fields[i])[0];
-          console.log("fields[" + i + "]=" + key + ":" + fields[i][key]);
-        }
-        for (i = 0; i < this.items.length; i++) {
-          key = Object.keys(this.items[i])[0];
-          console.log("items[" + i + "]=" + key + ":" + this.items[i][key]);
-        }
-
-        this.projects.push({ fields: fields });
-        console.log("Mocking projects:" + this.projects);
-      } else {
-        this.projects = null;
-      }
+      this.projects = null;
+      this.genMockData();
       CommonMethods.setHtml("queryStatus", "You are not logged in ");
     }
   }
@@ -98,5 +75,97 @@ export class ProjectsPage {
     this.navCtrl.push(ProjectDetailPage, {
       project: project
     });
+  }
+
+  setSort(event, sortField) {
+    // if same as last time 
+    if (sortField == this.sortField) {
+      if (this.sortAsc == 'A')
+        this.sortAsc = 'D';
+      else
+        this.sortAsc = 'A';
+    } else {
+      this.sortField = sortField;
+      this.sortAsc = 'A';
+    }
+    console.log("Sort set to " + sortField + " Asc:" + this.sortAsc);
+    // open new page
+    // this.navCtrl.push(ProjectsPage, {
+    //   sortField: sortField,
+    //   sortAsc: this.sortAsc
+    // });
+    // refresh current page
+    this.getProjectsList();
+  }
+
+  sortProjects(sortBy, sortAsc) {
+    if (this.projects) {
+      if (sortAsc == 'A') {
+        this.projects.sort(function (a, b) {
+          //console.log("comapringt:" + a['fields'][sortBy] + " to " + b['fields'][sortBy]);
+          if (a['fields'][sortBy] < b['fields'][sortBy]) {
+            return -1;
+          }
+          if (a['fields'][sortBy] > b['fields'][sortBy]) {
+            return 1;
+          }
+          return 0;
+        });
+      } else {
+        this.projects.sort(function (a, b) {
+          //console.log("comapringt:" + a['fields'][sortBy] + " to " + b['fields'][sortBy]);
+          if (a['fields'][sortBy] < b['fields'][sortBy]) {
+            return 1;
+          }
+          if (a['fields'][sortBy] > b['fields'][sortBy]) {
+            return -1;
+          }
+          return 0;
+        });
+      }
+      console.log("Mocked projects after sort:" + sortBy + ":" + sortAsc);
+      for (var p = 0; p < this.projects.length; p++) {
+        this.printProject(p);
+      }
+    }
+  }
+
+  printProject(p) {
+    let fields = this.projects[p]['fields'];
+    let str = "" + p + ":";
+    Object.keys(fields).forEach(function (key, index) {
+      str += key + " : " + fields[key] + ",";
+    });
+    console.log(str);
+  }
+  // create mock data for quick browser testing of layouts
+  genMockData() {
+    console.log("Mock:" + global.mock);
+
+    if (global.mock == 1) {
+      this.projects = new Array<{ fields: {} }>();
+      let fields: Array<{ id: string, Title: string, Status: string, Project_x0020_Manager: string, Created: string, Modified: string }>;
+      let max = 10;
+      for (var p = 0; p < max; p++) {
+        fields = [];
+        fields['id'] = '' + p;
+        fields['Title'] = 'Project ' + p;
+        if (Math.floor(Math.random() * 2) == 1) {
+          fields['Status'] = 'Active';
+        } else {
+          fields['Status'] = 'In Active';
+        }
+        fields['Project_x0020_Manager'] = 'Manager ' + Math.floor(Math.random() * max);
+
+        let p2 = '0' + Math.floor(Math.random() * 30);
+        p2 = p2.substr(p2.length - 2);
+        fields['Created'] = '2018-06-' + p2 + 'T16:11:57Z';
+        fields['Modified'] = '2018-06-' + p2 + 'T17:12:50Z';
+
+        this.projects.push({ fields: fields });
+        this.printProject(p);
+      }
+      this.sortProjects(this.sortField, this.sortAsc);
+    }
   }
 }

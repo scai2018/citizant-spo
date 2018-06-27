@@ -31,9 +31,9 @@
 
     <ion-grid>
         <ion-row >
-            <ion-col class="ion-header-left">Project</ion-col>
-            <ion-col class="ion-header">Manager</ion-col>
-            <ion-col class="ion-header-right">Status</ion-col>
+            <ion-col class="ion-header-left" (click)="setSort($event, 'Title')">Project</ion-col>
+            <ion-col class="ion-header" (click)="setSort($event, 'Project_x0020_Manager')">Manager</ion-col>
+            <ion-col class="ion-header-right" (click)="setSort($event, 'Status')">Status</ion-col>
         </ion-row>
         <ion-row 
             *ngFor="let project of projects"
