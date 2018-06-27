@@ -10,7 +10,7 @@ import { TaskDetailPage } from './taskDetail';
   templateUrl: 'tasks.html'
 })
 export class TasksPage {
-  tasks: Object[];
+  tasks: Object[] = [];
   url: string;
 
   //selectedTask: any;
@@ -38,7 +38,19 @@ export class TasksPage {
       let resp = this.http.get(url, { headers: { "Authorization": "Bearer " + global.authResult.accessToken } });
       resp.subscribe(
         res => {
-          this.tasks = res['value'];
+          //this.tasks = res['value'];
+          let taskList = res['value'];
+          taskList.forEach(task => {
+            task.fields.AssignedTo.forEach(assignedTo => {
+              // Note: use Email field as filter. Note the assignedTo.Email is the alias of the principal email of the user
+              // The principal email is returned in the authResult.userInfo.uniqueId, can't use it as filter. Have to use
+              // the Email from the user profile for this purpose
+              // e.g. dtrump@citizant.com vs donald.trump@citizant.com
+              if(assignedTo.Email.toLowerCase()===global.profile.mail.toLowerCase()) {
+                this.tasks.push(task);
+              }
+            });
+          });
         CommonMethods.setHtml("queryStatus", "Found " + this.tasks.length + " tasks");
         },
         err => {

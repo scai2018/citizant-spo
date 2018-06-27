@@ -2,6 +2,9 @@
 
 export var global = {
     authResult: null,
+    // user profile fetched Graph API
+    profile: null,
+
     ver: 1,
     projectsListID: 'da7cd400-0cd9-4dde-9167-3049747f195a',
     tasksListID: '7a76abd1-f9d7-4829-b3b7-152ab08b60f4',

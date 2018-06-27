@@ -12,6 +12,7 @@ import { global, CommonMethods } from "./global";
 import { HomePage } from '../pages/home/home';
 import { ProjectsPage } from '../pages/projects/projects';
 import { TasksPage } from '../pages/tasks/tasks';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   templateUrl: 'app.html'
@@ -30,7 +31,8 @@ export class MyApp {
 
   isAuthenticated = false;
 
-  constructor(public platform: Platform, private msAdal: MSAdal, public statusBar: StatusBar, public splashScreen: SplashScreen, private toastCtrl:ToastController) {
+  constructor(public platform: Platform, private msAdal: MSAdal, public statusBar: StatusBar, public splashScreen: SplashScreen, 
+    private toastCtrl:ToastController, private http:HttpClient) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -92,6 +94,20 @@ export class MyApp {
         console.log('Access Token is', authResponse.accessToken);
         console.log('UserInfo: ', authResponse.userInfo.givenName);
         console.log('Token will expire on', authResponse.expiresOn);
+        // Fetch the user profile to get the principal email of the user
+        // https://graph.microsoft.com/v1.0/me/
+        let url = global.resourceUrl2 + '/v1.0/me/';
+        let resp = this.http.get(url, { headers: { "Authorization": "Bearer " + global.authResult.accessToken } });
+        resp.subscribe(
+          res => {
+            global.profile = res;
+            console.log("Found profile: " + global.profile.mail);
+          },
+          err => {
+            CommonMethods.setHtml("authStatus", "Failed to login. Please try it later." );
+          }
+        );
+               
       })
       .catch((e: any) => {
         let authStatus = "Failed to login. Please try it later.";
