@@ -49,8 +49,12 @@ export class MyApp {
     this.platform.ready().then(() => {
       // Don't allow the Back button on Andriod to exit the app
       this.platform.registerBackButtonAction(() => {
-        console.log("Ignore BACK button on Android!");
-        this.presentToast("BACK button is ignored!");
+        if (new Date().getTime() - global.lastTimeBackPress < global.timePeriodToExit) {
+          this.platform.exitApp();
+        } else {
+          this.presentToast("Press again to exit.");
+          global.lastTimeBackPress = new Date().getTime();
+        }
         //sometimes the best thing you can do is not think, not wonder, not imagine, not obsess. 
         //just breathe, and have faith that everything will work out for the best.
       }, 1);
