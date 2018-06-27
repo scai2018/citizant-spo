@@ -4,7 +4,7 @@ import {
 import {
   NavController
 } from 'ionic-angular';
-import { global, CommonMethods } from "../../app/global";
+import { global } from "../../app/global";
 
 @Component({
   selector: 'page-home',
