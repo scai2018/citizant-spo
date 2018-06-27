@@ -41,7 +41,7 @@
         >
             <ion-col class="withBorder">{{task.fields.Title}}</ion-col>
             <ion-col class="withBorder">{{task.fields.Status}}</ion-col>
-            <ion-col class="withBorder">{{task.fields.PercentComplete}}</ion-col>
+            <ion-col class="withBorder">{{100*task.fields.PercentComplete}}</ion-col>
         </ion-row>
     </ion-grid>
 </ion-content>

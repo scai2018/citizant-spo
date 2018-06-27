@@ -34,8 +34,16 @@
         </ion-row> 
         <ion-row>
             <ion-col class="ion-label">\% Complete</ion-col>
-            <ion-col>{{selectedTask.fields.PercentComplete}}</ion-col>
+            <ion-col>{{100*selectedTask.fields.PercentComplete}}\%</ion-col>
         </ion-row>  
+        <ion-row>
+            <ion-col class="ion-label">Assigned To</ion-col>
+            <ion-col>
+                <div *ngFor="let p of selectedTask.fields.AssignedTo">
+                    {{p.LookupValue}}
+                </div>
+            </ion-col>
+        </ion-row>   
         <ion-row>
             <ion-col class="ion-label">Priority</ion-col>
             <ion-col>{{selectedTask.fields.Priority}}</ion-col>
