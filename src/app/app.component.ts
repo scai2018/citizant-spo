@@ -49,12 +49,19 @@ export class MyApp {
     this.platform.ready().then(() => {
       // Don't allow the Back button on Andriod to exit the app
       this.platform.registerBackButtonAction(() => {
-        if (new Date().getTime() - global.lastTimeBackPress < global.timePeriodToExit) {
-          this.platform.exitApp();
+        // if this page can go back, just do it as normal
+        if(this.nav.canGoBack()) {
+          this.nav.pop({});
         } else {
-          this.presentToast("Press again to exit.");
-          global.lastTimeBackPress = new Date().getTime();
+          // if this page can NOT go back, alert user to double click BACK button to exit
+          if (new Date().getTime() - global.lastTimeBackPress < global.timePeriodToExit) {
+            this.platform.exitApp();
+          } else {
+            this.presentToast("Press again to exit.");
+            global.lastTimeBackPress = new Date().getTime();
+          }
         }
+        
         //sometimes the best thing you can do is not think, not wonder, not imagine, not obsess. 
         //just breathe, and have faith that everything will work out for the best.
       }, 1);
