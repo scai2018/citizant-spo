@@ -12,7 +12,7 @@
 
 <ion-content>
     <ion-grid>
-        <ion-row >
+        <ion-row>
             <ion-col class="icon-col">
                 <button
                     ion-button
@@ -25,17 +25,67 @@
                     ></ion-icon>
                 </button>
             </ion-col>
-            <ion-col  id="queryStatus" class="statusInfo">queryStatus</ion-col>
+            <ion-col
+                id="queryStatus"
+                class="statusInfo"
+            >
+                queryStatus
+            </ion-col>
         </ion-row>
     </ion-grid>
 
     <ion-grid>
-        <ion-row >
-            <ion-col class="ion-header-left" (click)="setSort($event, 'Title')">Project</ion-col>
-            <ion-col class="ion-header" (click)="setSort($event, 'Project_x0020_Manager')">Manager</ion-col>
-            <ion-col class="ion-header-right" (click)="setSort($event, 'Status')">Status</ion-col>
+        <ion-row>
+            <ion-col
+                class="ion-header-left"
+                (click)="setSort($event, 'Title')"
+            >
+                Project
+                <span *ngIf="sortField == 'Title'">
+                    <ion-icon
+                        name="arrow-dropdown"
+                        *ngIf="sortAsc == 'A'"
+                    ></ion-icon>
+                    <ion-icon
+                        name="arrow-dropup"
+                        *ngIf="sortAsc == 'D'"
+                    ></ion-icon>
+                </span>
+            </ion-col>
+            <ion-col
+                class="ion-header"
+                (click)="setSort($event, 'Project_x0020_Manager')"
+            >
+                Manager
+                <span *ngIf="sortField == 'Project_x0020_Manager'">
+                    <ion-icon
+                        name="arrow-dropdown"
+                        *ngIf="sortAsc == 'A'"
+                    ></ion-icon>
+                    <ion-icon
+                        name="arrow-dropup"
+                        *ngIf="sortAsc == 'D'"
+                    ></ion-icon>
+                </span>
+            </ion-col>
+            <ion-col
+                class="ion-header-right"
+                (click)="setSort($event, 'Status')"
+            >
+                Status
+                <span *ngIf="sortField == 'Status'">
+                    <ion-icon
+                        name="arrow-dropdown"
+                        *ngIf="sortAsc == 'A'"
+                    ></ion-icon>
+                    <ion-icon
+                        name="arrow-dropup"
+                        *ngIf="sortAsc == 'D'"
+                    ></ion-icon>
+                </span>
+            </ion-col>
         </ion-row>
-        <ion-row 
+        <ion-row
             *ngFor="let project of projects"
             (click)="projectTapped($event, project)"
         >
