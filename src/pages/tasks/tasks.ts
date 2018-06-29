@@ -40,6 +40,7 @@ export class TasksPage {
         res => {
           //this.tasks = res['value'];
           let taskList = res['value'];
+          this.tasks = []; // initialzed to empty in case of refresh
           taskList.forEach(task => {
             task.fields.AssignedTo.forEach(assignedTo => {
               // Note: use Email field as filter. Note the assignedTo.Email is the alias of the principal email of the user
