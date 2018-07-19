@@ -1,4 +1,5 @@
 // import { Component } from '@angular/core';
+import { ToastController } from 'ionic-angular';
 
 export var global = {
     lastTimeBackPress: 0,
@@ -51,5 +52,19 @@ export class CommonMethods {
             console.log("unable to set " + elementName + ":" + html);
         }
         return html;
+    }
+
+    public static presentToast(msg: string, toastCtrl:ToastController) {
+        let toast = toastCtrl.create({
+          message: msg,
+          duration: 3000,
+          position: 'top'
+        });
+    
+        toast.onDidDismiss(() => {
+          console.log('Dismissed toast');
+        });
+    
+        toast.present();
     }
 };

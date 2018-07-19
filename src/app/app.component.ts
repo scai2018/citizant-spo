@@ -148,23 +148,15 @@ export class MyApp {
 
     CommonMethods.setHtml("logStatus", "Logged out");
     CommonMethods.setHtml("authStatus", "");
-    // SCAI: TODO - add toast msg 
+    // add toast msg 
     this.presentToast("User logout successfully");
     this.openPage(this.pages[0]);
   }
 
+  // Helper method
   presentToast(msg: string) {
-    let toast = this.toastCtrl.create({
-      message: msg,
-      duration: 3000,
-      position: 'top'
-    });
+    CommonMethods.presentToast(msg, this.toastCtrl);
 
-    toast.onDidDismiss(() => {
-      console.log('Dismissed toast');
-    });
-
-    toast.present();
   }
 }
 

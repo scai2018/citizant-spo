@@ -19,7 +19,11 @@
         <ion-row>
             <ion-col class="ion-label">Task Name</ion-col>
             <ion-col> {{selectedTask.fields.Title}}</ion-col>
-        </ion-row>  
+        </ion-row> 
+        <ion-row>
+                <ion-col class="ion-label">Description</ion-col>
+                <ion-col>{{selectedTask.fields.Body}} </ion-col>
+            </ion-row>           
         <ion-row>
             <ion-col class="ion-label">Predecessors</ion-col>
             <ion-col>
@@ -34,8 +38,15 @@
         </ion-row> 
         <ion-row>
             <ion-col class="ion-label">\% Complete</ion-col>
-            <ion-col>{{100*selectedTask.fields.PercentComplete}}\%</ion-col>
+            <ion-col>
+                <input type="tel" style="width:20%;" maxlength="3" placeholder="0 - 100" (keypress)="onKeyPress($event)" [(ngModel)]="percentComplete">\%
+            </ion-col>
         </ion-row>  
+        <ion-row>
+            <ion-col class="ion-label">Comment</ion-col>
+            <ion-col><textarea style="width:100%;height:100%;" placeholder="Please enter comments" [(ngModel)]="comment" ></textarea></ion-col>
+        </ion-row>  
+              
         <ion-row>
             <ion-col class="ion-label">Assigned To</ion-col>
             <ion-col>
@@ -60,6 +71,9 @@
             <ion-col class="ion-label">Modified</ion-col>
             <ion-col>{{selectedTask.fields.Modified}}</ion-col>
         </ion-row> 
-
     </ion-grid>
+    <div text-center>
+        <button ion-button round (click)="saveTask()">Save</button>
+        <button ion-button round (click)="cancel()">Cancel</button>
+    </div>     
 </ion-content>
